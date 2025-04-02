@@ -227,7 +227,7 @@ library(tidyverse) # Version 2.0.0
 		  # [The first is standard CWD Data Warehouse, the second is equivalent in SpeedGoat.]
 		  if(TidyData2$species[i]=="white-tailed deer"){TidyDataSG$species[i]="White-tailed Deer"}
 		  if(TidyData2$species[i]=="elk"){TidyDataSG$species[i]="Elk"}
-		  if(TidyData2$species[i]=="mule deer"){TidyDataSG$species[i]="Mule deer"}
+		  if(TidyData2$species[i]=="mule deer"){TidyDataSG$species[i]="Mule Deer"}
 		  # Standardize source.
 		  # [The first is standard CWD Data Warehouse, the second is equivalent in SpeedGoat.]
 		  if(TidyData2$sample_source[i]=="Captive cervid facility"){TidyDataSG$sample_source[i]="NA"} # SpeedGoat does not deal with captive animals. 
@@ -239,7 +239,7 @@ library(tidyverse) # Version 2.0.0
 		  if(TidyData2$sample_source[i]=="Removal for crop damage"){TidyDataSG$sample_source[i]="Hunter-harvested"}	# SpeedGoat sharp shot is only relative to CWD status, hence this being hunter-harvested.
 		  if(TidyData2$sample_source[i]=="Removal for population management"){TidyDataSG$sample_source[i]="Hunter-harvested"} # SpeedGoat sharp shot is only relative to CWD status, hence this being hunter-harvested.
 		  if(TidyData2$sample_source[i]=="Research"){TidyDataSG$sample_source[i]="Other"}	
-		  if(TidyData2$sample_source[i]=="Road kill"){TidyDataSG$sample_source[i]="Vehicle collision"}	
+		  if(TidyData2$sample_source[i]=="Road kill"){TidyDataSG$sample_source[i]="Vehicle collision (direct or indirect)"}	
 		  if(TidyData2$sample_source[i]=="Targeted removal"){TidyDataSG$sample_source[i]="Sharp shot"} # Removed in relation to its CWD status. 
 		  if(TidyData2$sample_source[i]=="Unknown"){TidyDataSG$sample_source[i]="Other"}		  
       # Standardize age.
@@ -298,10 +298,10 @@ library(tidyverse) # Version 2.0.0
     	WTD=subset(SG_Data,species=="White-tailed Deer")
     	WTDDim=as.numeric(nrow(WTD))
       
-    	MULE=subset(SG_Data,species=="Mule deer")
+    	MULE=subset(SG_Data,species=="Mule Deer")
     	MuleDim=as.numeric(nrow(MULE))
     
-    	ELKMULE=subset(SG_Data,species=="Mule deer" | species=="Elk")
+    	ELKMULE=subset(SG_Data,species=="Mule Deer" | species=="Elk")
     	ElkMuleDim=as.numeric(nrow(ELKMULE))
 
 # Note.
@@ -890,9 +890,9 @@ if(params$species=="Mule Deer"){
     # If mule deer clinical suspect is empty. 
     if (MuleCSDim==0){
     # Tell the user insufficient records exist.
-    line="<p>Mule deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+    line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
     write(line,file=model_log_filepath,append=TRUE)  
-    line="<p>Mule deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+    line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
     write(line,file=model_log_filepath,append=TRUE) 
     } # End mule deer clinical suspect is empty. 
         
@@ -907,7 +907,7 @@ if(params$species=="Mule Deer"){
           # if MULE clinical suspect Female is empty.
           if (MuleCSDimF==0){
           # Tell the user insufficient records exist.
-          line="<p>Mule deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+          line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE) 
           } # End if female clinical suspect is empty. 
           
@@ -924,7 +924,7 @@ if(params$species=="Mule Deer"){
               # If only one record exists and its detected, tell user data doesn't fit criteria.
               if (TABLE19_Dim==1 & TABLE19$result[1]=="Detected"){
               # Write a note that the data does not fit this prior.  
-              line="<p>Mule deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+              line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
               write(line,file=model_log_filepath,append=TRUE) 
               } # End if one and detected. 
             
@@ -948,7 +948,7 @@ if(params$species=="Mule Deer"){
                       # If no records remains after duality filter. 
                       if (TABLE20_Dim==0){
                       # Tell the user insufficient records exist.
-                      line="<p>Mule deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+                      line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
                       write(line,file=model_log_filepath,append=TRUE)  
                       } # End if no records exist. 
               
@@ -962,7 +962,7 @@ if(params$species=="Mule Deer"){
                               # If no non-detect records remain. 
                               if (TABLE21_Dim==0){
                               # Tell the user insufficient records exist.
-                              line="<p>Mule deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+                              line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
                               write(line,file=model_log_filepath,append=TRUE) 
                               } # End if no records exist. 
                 
@@ -987,7 +987,7 @@ if(params$species=="Mule Deer"){
             # if MULE clinical suspect Male is empty.
             if (MuleCSDimM==0){
             # Tell the user insufficient records exist.
-            line="<p>Mule deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+            line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
             write(line,file=model_log_filepath,append=TRUE) 
             } # End if male clinical suspect is empty. 
           
@@ -1004,7 +1004,7 @@ if(params$species=="Mule Deer"){
                 # If only one record exists and its detected, tell user data doesn't fit criteria.
                 if (TABLE22_Dim==1 & TABLE22$result[1]=="Detected"){
                 # Write a note that the data does not fit this prior.  
-                line="<p>Mule deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+                line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
                 write(line,file=model_log_filepath,append=TRUE) 
                 } # End if one and detected. 
             
@@ -1028,7 +1028,7 @@ if(params$species=="Mule Deer"){
                         # If no records remains after duality filter. 
                         if (TABLE23_Dim==0){
                         # Tell the user insufficient records exist.
-                        line="<p>Mule deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+                        line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
                         write(line,file=model_log_filepath,append=TRUE) 
                         } # End if no records exist. 
               
@@ -1042,7 +1042,7 @@ if(params$species=="Mule Deer"){
                             # If no non-detect records remain. 
                             if (TABLE24_Dim==0){
                             # Tell the user insufficient records exist.
-                            line="<p>Mule deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+                            line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
                             write(line,file=model_log_filepath,append=TRUE) 
                             } # End if no records exist. 
                 
@@ -1067,17 +1067,17 @@ if(params$species=="Mule Deer"){
       # If mule deer hunter harvest is empty. 
       if (MuleHHDim==0){
       # Tell the user insufficient records exist.
-      line="<p>Mule deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+      line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
-      line="<p>Mule deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+      line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
-      line="<p>Mule deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+      line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
-      line="<p>Mule deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+      line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
-      line="<p>Mule deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+      line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
-      line="<p>Mule deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+      line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
       } # End if mule deer hunter harvest is empty.
         
@@ -1092,7 +1092,7 @@ if(params$species=="Mule Deer"){
           # if mule deer hunter-harvest Female Adult is empty.
           if (MuleHHDimF==0){
           # Tell the user insufficient records exist.
-          line="<p>Mule deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+          line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE) 
           } # End if mule deer female adult hunter-harvest is empty. 
           
@@ -1106,7 +1106,7 @@ if(params$species=="Mule Deer"){
                   # If only one record exists and its detected, tell user data doesn't fit criteria.
                   if (TABLE25_Dim==1 & TABLE25$result[1]=="Detected"){
                   # Write a note that the data does not fit this prior.  
-                  line="<p>Mule deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+                  line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
                   write(line,file=model_log_filepath,append=TRUE) 
                   } # End if one and detected. 
             
@@ -1130,7 +1130,7 @@ if(params$species=="Mule Deer"){
                           # If no records remains after duality filter. 
                           if (TABLE26_Dim==0){
                           # Tell the user insufficient records exist.
-                          line="<p>Mule deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+                          line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
                           write(line,file=model_log_filepath,append=TRUE)
                           } # End if no records exist. 
               
@@ -1144,7 +1144,7 @@ if(params$species=="Mule Deer"){
                               # If no non-detect records remain. 
                               if (TABLE27_Dim==0){
                               # Tell the user insufficient records exist.
-                              line="<p>Mule deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+                              line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
                               write(line,file=model_log_filepath,append=TRUE)
                               } # End if no records exist. 
                 
@@ -1169,7 +1169,7 @@ if(params$species=="Mule Deer"){
           # if MULE hunter-harvest Female yearling is empty.
           if (MuleHHDimF2==0){
           # Tell the user insufficient records exist.
-          line="<p>Mule deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+          line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE)
           } # End if mule deer female yearling hunter-harvest is empty. 
           
@@ -1183,7 +1183,7 @@ if(params$species=="Mule Deer"){
                 # If only one record exists and its detected, tell user data doesn't fit criteria.
                 if (TABLE28_Dim==1 & TABLE28$result[1]=="Detected"){
                 # Write a note that the data does not fit this prior.  
-                line="<p>Mule deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>" 
+                line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>" 
                 write(line,file=model_log_filepath,append=TRUE) 
                 } # End if one and detected. 
             
@@ -1207,7 +1207,7 @@ if(params$species=="Mule Deer"){
                         # If no records remains after duality filter. 
                         if (TABLE29_Dim==0){
                         # Tell the user insufficient records exist.
-                        line="<p>Mule deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+                        line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
                         write(line,file=model_log_filepath,append=TRUE)
                         } # End if no records exist. 
               
@@ -1221,7 +1221,7 @@ if(params$species=="Mule Deer"){
                                 # If no non-detect records remain. 
                                 if (TABLE30_Dim==0){
                                 # Tell the user insufficient records exist.
-                                line="<p>Mule deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+                                line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
                                 write(line,file=model_log_filepath,append=TRUE)
                                 } # End if no records exist. 
                 
@@ -1246,7 +1246,7 @@ if(params$species=="Mule Deer"){
           # if MULE hunter-harvest Female fawn is empty.
           if (MuleHHDimF3==0){
           # Tell the user insufficient records exist.
-          line="<p>Mule deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+          line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE)
           } # End if mule deer female fawn hunter-harvest is empty. 
           
@@ -1260,7 +1260,7 @@ if(params$species=="Mule Deer"){
                 # If only one record exists and its detected, tell user data doesn't fit criteria.
                 if (TABLE31_Dim==1 & TABLE31$result[1]=="Detected"){
                 # Write a note that the data does not fit this prior.  
-                line="<p>Mule deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+                line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
                 write(line,file=model_log_filepath,append=TRUE) 
                 } # End if one and detected. 
             
@@ -1284,7 +1284,7 @@ if(params$species=="Mule Deer"){
                       # If no records remains after duality filter. 
                       if (TABLE32_Dim==0){
                       # Tell the user insufficient records exist.
-                      line="<p>Mule deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+                      line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
                       write(line,file=model_log_filepath,append=TRUE) 
                       } # End if no records exist. 
               
@@ -1298,7 +1298,7 @@ if(params$species=="Mule Deer"){
                               # If no non-detect records remain. 
                               if (TABLE33_Dim==0){
                               # Tell the user insufficient records exist.
-                              line="<p>Mule deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+                              line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
                               write(line,file=model_log_filepath,append=TRUE)
                               } # End if no records exist. 
                 
@@ -1323,7 +1323,7 @@ if(params$species=="Mule Deer"){
           # if MULE hunter-harvest Male is empty.
           if (MuleHHDimM==0){
           # Tell the user insufficient records exist.
-          line="<p>Mule deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+          line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE)
           } # End if male adult hunter-harvest is empty. 
           
@@ -1337,7 +1337,7 @@ if(params$species=="Mule Deer"){
                   # If only one record exists and its detected, tell user data doesn't fit criteria.
                   if (TABLE34_Dim==1 & TABLE34$result[1]=="Detected"){
                   # Write a note that the data does not fit this prior.  
-                  line="<p>Mule deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+                  line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
                   write(line,file=model_log_filepath,append=TRUE) 
                   } # End if one and detected. 
             
@@ -1361,7 +1361,7 @@ if(params$species=="Mule Deer"){
                           # If no records remains after duality filter. 
                           if (TABLE35_Dim==0){
                           # Tell the user insufficient records exist.
-                          line="<p>Mule deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+                          line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
                           write(line,file=model_log_filepath,append=TRUE)
                           } # End if no records exist. 
               
@@ -1375,7 +1375,7 @@ if(params$species=="Mule Deer"){
                                   # If no non-detect records remain. 
                                   if (TABLE36_Dim==0){
                                   # Tell the user insufficient records exist.
-                                  line="<p>Mule deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+                                  line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
                                   write(line,file=model_log_filepath,append=TRUE)
                                   } # End if no records exist. 
                 
@@ -1400,7 +1400,7 @@ if(params$species=="Mule Deer"){
         # if MULE hunter-harvest Male yearling is empty.
         if (MuleHHDimM2==0){
         # Tell the user insufficient records exist.
-        line="<p>Mule deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+        line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
         write(line,file=model_log_filepath,append=TRUE)
         } # End if mule deer male yearling hunter-harvest is empty. 
         
@@ -1414,7 +1414,7 @@ if(params$species=="Mule Deer"){
                 # If only one record exists and its detected, tell user data doesn't fit criteria.
                 if (TABLE37_Dim==1 & TABLE37$result[1]=="Detected"){
                 # Write a note that the data does not fit this prior.  
-                line="<p>Mule deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+                line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
                 write(line,file=model_log_filepath,append=TRUE) 
                 } # End if one and detected. 
           
@@ -1438,7 +1438,7 @@ if(params$species=="Mule Deer"){
                     # If no records remains after duality filter. 
                     if (TABLE38_Dim==0){
                     # Tell the user insufficient records exist.
-                    line="<p>Mule deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+                    line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
                     write(line,file=model_log_filepath,append=TRUE)
                     } # End if no records exist. 
             
@@ -1452,7 +1452,7 @@ if(params$species=="Mule Deer"){
                             # If no non-detect records remain. 
                             if (TABLE39_Dim==0){
                             # Tell the user insufficient records exist.
-                            line="<p>Mule deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+                            line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
                             write(line,file=model_log_filepath,append=TRUE)
                             } # End if no records exist. 
               
@@ -1477,7 +1477,7 @@ if(params$species=="Mule Deer"){
         # if MULE hunter-harvest Male fawn is empty.
         if (MuleHHDimM3==0){
         # Tell the user insufficient records exist.
-        line="<p>Mule deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+        line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
         write(line,file=model_log_filepath,append=TRUE) 
         } # End if mule deer male fawn hunter-harvest is empty. 
         
@@ -1491,7 +1491,7 @@ if(params$species=="Mule Deer"){
                 # If only one record exists and its detected, tell user data doesn't fit criteria.
                 if (TABLE40_Dim==1 & TABLE40$result[1]=="Detected"){
                 # Write a note that the data does not fit this prior.  
-                line="<p>Mule deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+                line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
                 write(line,file=model_log_filepath,append=TRUE) 
                 } # End if one and detected. 
           
@@ -1515,7 +1515,7 @@ if(params$species=="Mule Deer"){
                         # If no records remains after duality filter. 
                         if (TABLE42_Dim==0){
                         # Tell the user insufficient records exist.
-                        line="<p>Mule deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+                        line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
                         write(line,file=model_log_filepath,append=TRUE) 
                         } # End if no records exist. 
             
@@ -1529,7 +1529,7 @@ if(params$species=="Mule Deer"){
                                 # If no non-detect records remain. 
                                 if (TABLE43_Dim==0){
                                 # Tell the user insufficient records exist.
-                                line="<p>Mule deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+                                line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
                                 write(line,file=model_log_filepath,append=TRUE) 
                                 } # End if no records exist. 
               
@@ -1554,7 +1554,7 @@ if(params$species=="Mule Deer"){
   # If mule deer other is empty. 
   if (MuleODim==0){
   # Tell the user insufficient records exist.
-  line="<p>Mule deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+  line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
   write(line,file=model_log_filepath,append=TRUE) 
   } # End mule deer other is empty. 
         
@@ -1577,7 +1577,7 @@ if(params$species=="Mule Deer"){
           # If only one record exists and its detected, tell user data doesn't fit criteria.
           if (TABLE44_Dim==1 & TABLE44$result[1]=="Detected"){
           # Write a note that the data does not fit this prior.  
-          line="<p>Mule deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+          line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE) 
           } # End if one and detected. 
           
@@ -1601,7 +1601,7 @@ if(params$species=="Mule Deer"){
                   # If no records remains after duality filter. 
                   if (TABLE45_Dim==0){
                   # Tell the user insufficient records exist.
-                  line="<p>Mule deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+                  line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
                   write(line,file=model_log_filepath,append=TRUE)  
                   } # End if no records exist. 
             
@@ -1615,7 +1615,7 @@ if(params$species=="Mule Deer"){
                           # If no non-detect records remain. 
                           if (TABLE46_Dim==0){
                           # Tell the user insufficient records exist.
-                          line="<p>Mule deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+                          line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
                           write(line,file=model_log_filepath,append=TRUE) 
                           } # End if no records exist. 
               
@@ -2157,13 +2157,13 @@ if(params$species=="White-tailed Deer"){
   } # End if white-tailed deer hunter-harvest contains data.
   
       # WTD VEHICLE  ________________________________________________________________         
-      WTD_VC=subset(WTD,sample_source=="Vehicle collision")
+      WTD_VC=subset(WTD,sample_source=="Vehicle collision (direct or indirect)")
       WTDVCDim=as.numeric(nrow(WTD_VC))
         
         # If white-tailed deer vehicle collision is empty. 
         if (WTDVCDim==0){
         # Tell the user insufficient records exist.
-        line="<p>White-tailed Deer, Vehicle collision, All Ages, All Sexes: Prior unfulfilled.</p>"
+        line="<p>White-tailed Deer, Vehicle collision (direct or indirect), All Ages, All Sexes: Prior unfulfilled.</p>"
         write(line,file=model_log_filepath,append=TRUE)
         } # End white-tailed deer vehicle collision is empty. 
         
@@ -2184,7 +2184,7 @@ if(params$species=="White-tailed Deer"){
               # If only one record exists and its detected, tell user data doesn't fit criteria.
               if (TABLE65_Dim==1 & TABLE65$result[1]=="Detected"){
               # Write a note that the data does not fit this prior.  
-              line="<p>White-tailed Deer, Vehicle collision, All Ages, All Sexes: Prior unfulfilled.</p>"
+              line="<p>White-tailed Deer, Vehicle collision (direct or indirect), All Ages, All Sexes: Prior unfulfilled.</p>"
               write(line,file=model_log_filepath,append=TRUE) 
               } # End if one and detected. 
           
@@ -2193,7 +2193,7 @@ if(params$species=="White-tailed Deer"){
               # Add the record to the output file. 
               OUTPUT=rbind(OUTPUT, TABLE65)
 		# Add to the report.
-    		line="<p>White-tailed Deer, Vehicle collision, All Ages, All Sexes: Prior fulfilled.</p>"
+    		line="<p>White-tailed Deer, Vehicle collision (direct or indirect), All Ages, All Sexes: Prior fulfilled.</p>"
     		 write(line,file=model_log_filepath,append=TRUE)
               } # End if one and not detected. 
           
@@ -2208,7 +2208,7 @@ if(params$species=="White-tailed Deer"){
                       # If no records remains after duality filter. 
                       if (TABLE66_Dim==0){
                       # Tell the user insufficient records exist.
-                      line="<p>White-tailed Deer, Vehicle collision, All Ages, All Sexes: Prior unfulfilled.</p>"
+                      line="<p>White-tailed Deer, Vehicle collision (direct or indirect), All Ages, All Sexes: Prior unfulfilled.</p>"
                       write(line,file=model_log_filepath,append=TRUE)
                       } # End if no records exist. 
             
@@ -2222,7 +2222,7 @@ if(params$species=="White-tailed Deer"){
                               # If no non-detect records remain. 
                               if (TABLE67_Dim==0){
                               # Tell the user insufficient records exist.
-                              line="<p>White-tailed Deer, Vehicle collision, All Ages, All Sexes: Prior unfulfilled.</p>"
+                              line="<p>White-tailed Deer, Vehicle collision (direct or indirect), All Ages, All Sexes: Prior unfulfilled.</p>"
                               write(line,file=model_log_filepath,append=TRUE)
                               } # End if no records exist. 
               
@@ -2231,7 +2231,7 @@ if(params$species=="White-tailed Deer"){
                               # Add the record to the output file. 
                               OUTPUT=rbind(OUTPUT, TABLE67)
 		  		# Add to the report.
-    		  		line="<p>White-tailed Deer, Vehicle collision, All Ages, All Sexes: Prior fulfilled.</p>"
+    		  		line="<p>White-tailed Deer, Vehicle collision (direct or indirect), All Ages, All Sexes: Prior fulfilled.</p>"
     		  		write(line,file=model_log_filepath,append=TRUE)
                               } # End if one and not detected. 
               
@@ -2821,779 +2821,1326 @@ if(params$species=="White-tailed Deer"){
 # If user selected elk/mule combo. 
 if(params$species=="Elk/Mule Deer Combined"){
   
-  # If mule deer/elk combo data does not globally exist. 
-  if (ElkMuleDim==0){
-  # Add information to the report.
-  line="<p>We're sorry. You selected the mule deer/elk combo, but there does not 
-	  exist any testing records for mule deer or elk for the season-year 
-	  of interest. Please return to the CWD Data Warehouse and 
-	  select a different season-year.</p>"
-  write(line,file=model_log_filepath,append=TRUE) 
-  # Quit the session.
-  quit(status=70)
-  } # End if mule deer/elk combo data does not globally exist.
+  # Initialize elk output. 
+  Elk_OUTPUT=c()
+  QUIT=0 
   
-  # If mule deer/elk combo data globally exists. 
-  if (ElkMuleDim>0){
+  # Run Elk First. ----------------
+  # If elk data does not globally exist. 
+  if (ElkDim==0){
+    # Add information to the report.
+    line="<p>You selected the elk/mule deer combination option, but there does not exist any elk testing records in the season-year of interest. </p>"
+    write(line,file=model_log_filepath,append=TRUE) 
+    # Don't quit the session just yet becuase their might be mule deer records. 
+    # Just log that elk don't exist. 
+    QUIT=1
+  } # End if elk data does not globally exist.
+  
+  # If elk data globally exists. 
+  if (ElkDim>0){
     
-  # Opening Note. 
-  # As of August 2024, SpeedGoat mule deer/elk combo priors are limited to Clinical suspect, 
-  # Hunter-harvested, and Other. 
-
-      # Replace elk and mule deer distinctions with 'Combination'. [We do this because the prior for SpeedGoat Estimation tool is "Combination.'] 
-      ELKMULE$species=rep("Combination", ElkMuleDim)
-
-      # ELKMULE CLINICAL SUSPECT _______________________________________________________ 
-      ELKMULE_CS=subset(ELKMULE,sample_source=="Clinical suspect")
-      ElkMuleCSDim=as.numeric(nrow(ELKMULE_CS))
+    # Opening Note. 
+    # As of August 2024, SpeedGoat Estimation tool elk priors are limited to Clinical suspect, 
+    # Hunter-harvested, and Other. 
     
-      # If mule deer/elk combo clinical suspect is empty. 
-      if (ElkMuleCSDim==0){
+    # ELK CLINICAL SUSPECT _______________________________________________________ 
+    ELK_CS=subset(ELK,sample_source=="Clinical suspect")
+    ElkCSDim=as.numeric(nrow(ELK_CS))
+    
+    # If elk clinical suspect is empty. 
+    if (ElkCSDim==0){
       # Tell the user insufficient records exist.
-      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE)
-      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE)
-      } # End mule deer/elk combo clinical suspect is empty. 
+      line="<p>Elk, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)  
+      line="<p>Elk, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE) 
+    } # End elk clinical suspect is empty. 
     
-      # If mule deer/elk combo clinical suspect contains data.
-      if (ElkMuleCSDim>0){
-      
-          # PRIOR________________________________________________________________
-          # Get summary for Mule Deer/Elk Combo + Clinical Suspect + All Ages + Female prior.
-          ELKMULE_CS_Female=subset(ELKMULE_CS,sex=="Female")
-          ElkMuleCSDimF=as.numeric(nrow(ELKMULE_CS_Female))
-      
-              # if ELKMULE clinical suspect Female is empty.
-              if (ElkMuleCSDimF==0){
-              # Tell the user insufficient records exist.
-              line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
-              write(line,file=model_log_filepath,append=TRUE) 
-              } # End if female clinical suspect is empty. 
-      
-              # if ELKMULE clinical suspect Female contains data.             
-              if (ElkMuleCSDimF>0){
-        
-                  # Replace age data with 'All Ages'. [We do this because SpeedGoat is "All Ages.'] 
-                  ELKMULE_CS_Female$age_group=rep("All Ages", ElkMuleCSDimF)
-        
-                  # Summarize the data. 
-                  TABLE90=as.data.frame(ELKMULE_CS_Female%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-                  TABLE90_Dim=as.numeric(nrow(TABLE90))
-        
-                      # If only one record exists and its detected, tell user data doesn't fit criteria.
-                      if (TABLE90_Dim==1 & TABLE90$result[1]=="Detected"){
-                      # Write a note that the data does not fit this prior.  
-                      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
-                      write(line,file=model_log_filepath,append=TRUE) 
-                      } # End if one and detected. 
-        
-                      # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-                      if (TABLE90_Dim==1 & TABLE90$result[1]=="Not Detected"){
-                      # Add the record to the output file. 
-                      OUTPUT=rbind(OUTPUT, TABLE90)
-                      # Add to the report.
-                      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior fulfilled.</p>"
-                      write(line,file=model_log_filepath,append=TRUE)
-                      } # End if one and not detected. 
-        
-                      # If two or more lines exist in the summary table. 
-                      if (TABLE90_Dim>1){
-          
-                          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                          TABLE91=as.data.frame(TABLE90%>%group_by(SubAdminName)%>%filter(n()<2))
-                          TABLE91_Dim=as.numeric(nrow(TABLE91))
-          
-                              # If no records remains after duality filter. 
-                              if (TABLE91_Dim==0){
-                              # Tell the user insufficient records exist.
-                              line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
-                              write(line,file=model_log_filepath,append=TRUE)
-                              } # End if no records exist. 
-          
-                              # If at least one record remains after duality filter. 
-                              if (TABLE91_Dim>0){
-            
-                                  # Retain only the non-detect records. 
-                                  TABLE92=subset(TABLE91,result=="Not Detected")
-                                  TABLE92_Dim=as.numeric(nrow(TABLE92))
-            
-                                  # If no non-detect records remain. 
-                                  if (TABLE92_Dim==0){
-                                  # Tell the user insufficient records exist.
-                                  line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
-                                  write(line,file=model_log_filepath,append=TRUE)
-                                  } # End if no records exist. 
-            
-                                  # If non-detect records remain. 
-                                  if (TABLE92_Dim>0){
-                                  # Add the record to the output file. 
-                                  OUTPUT=rbind(OUTPUT, TABLE92)
-                                  # Add to the report.
-                                  line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Female: Prior fulfilled.</p>"
-                                  write(line,file=model_log_filepath,append=TRUE)
-                                  } # End if one and not detected. 
-            
-                            } # If at least one record remains after duality filter. 
-                    } # End if two or more lines exist in summary table. 
-              } # End if female clinical suspect contains data. 
-      
-          # PRIOR________________________________________________________________  
-          # Get summary for Mule Deer/Elk Combo + Clinical Suspect + All Ages + Male prior.
-          ELKMULE_CS_Male=subset(ELKMULE_CS,sex=="Male")
-          ElkMuleCSDimM=as.numeric(nrow(ELKMULE_CS_Male))
-      
-              # if ELKMULE clinical suspect Male is empty.
-              if (ElkMuleCSDimM==0){
-              # Tell the user insufficient records exist.
-              line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
-              write(line,file=model_log_filepath,append=TRUE)
-              } # End if male clinical suspect is empty. 
-      
-              # if ELKMULE clinical suspect Male contains data.              
-              if (ElkMuleCSDimM>0){
-        
-              # Replace age data with 'All Ages'. [We do this because SpeedGoat prior is All Ages.] 
-              ELKMULE_CS_Male$age_group=rep("All Ages", ElkMuleCSDimM)
-        
-                  # Summarize the data. 
-                  TABLE93=as.data.frame(ELKMULE_CS_Male%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-                  TABLE93_Dim=as.numeric(nrow(TABLE93))
-        
-                      # If only one record exists and its detected, tell user data doesn't fit criteria.
-                      if (TABLE93_Dim==1 & TABLE93$result[1]=="Detected"){
-                      # Write a note that the data does not fit this prior.  
-                      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
-                      write(line,file=model_log_filepath,append=TRUE) 
-                      } # End if one and detected. 
-        
-                      # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-                      if (TABLE93_Dim==1 & TABLE93$result[1]=="Not Detected"){
-                      # Add the record to the output file. 
-                      OUTPUT=rbind(OUTPUT, TABLE93)
-                      # Add to the report.
-                      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior fulfilled.</p>"
-                      write(line,file=model_log_filepath,append=TRUE)
-                      } # End if one and not detected. 
-        
-                      # If two or more lines exist in the summary table. 
-                      if (TABLE93_Dim>1){
-          
-                          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                          TABLE94=as.data.frame(TABLE93%>%group_by(SubAdminName)%>%filter(n()<2))
-                          TABLE94_Dim=as.numeric(nrow(TABLE94))
-          
-                              # If no records remains after duality filter. 
-                              if (TABLE94_Dim==0){
-                              # Tell the user insufficient records exist.
-                              line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
-                              write(line,file=model_log_filepath,append=TRUE)
-                              } # End if no records exist. 
-          
-                              # If at least one record remains after duality filter. 
-                              if (TABLE94_Dim>0){
-            
-                                  # Retain only the non-detect records. 
-                                  TABLE95=subset(TABLE94,result=="Not Detected")
-                                  TABLE95_Dim=as.numeric(nrow(TABLE95))
-            
-                                      # If no non-detect records remain. 
-                                      if (TABLE95_Dim==0){
-                                      # Tell the user insufficient records exist.
-                                      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
-                                      write(line,file=model_log_filepath,append=TRUE)
-                                      } # End if no records exist. 
-            
-                                      # If non-detect records remain. 
-                                      if (TABLE95_Dim>0){
-                                      # Add the record to the output file. 
-                                      OUTPUT=rbind(OUTPUT, TABLE95)
-                                      # Add to the report.
-                                      line="<p>Elk/Mule Deer Combined, Clinical suspect, All Ages, Male: Prior fulfilled.</p>"
-                                      write(line,file=model_log_filepath,append=TRUE)
-                                      } # End if one and not detected. 
-            
-                              } # If at least one record remains after duality filter. 
-                      } # End if two or more lines exist in summary table. 
-              } # End if male clinical suspect contains data. 
-      } # End If mule deer/elk combo clinical suspect contains data.
-    
-      # ELKMULE HUNTER HARVESTED ________________________________________________________________        
-      ELKMULE_HH=subset(ELKMULE,sample_source=="Hunter-harvested")
-      ElkMuleHHDim=as.numeric(nrow(ELKMULE_HH))
-    
-      # If mule deer/elk combo hunter harvest is empty. 
-      if (ElkMuleHHDim==0){
-      # Tell the user insufficient records exist.
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE) 
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE) 
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE) 
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE) 
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE) 
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE)
-      } # End if mule deer/elk combo hunter harvest is empty.
-    
-      # If mule deer/elk combo hunter harvest contains data.
-      if (ElkMuleHHDim>0){
-      
-          # PRIOR________________________________________________________________
-          # Get summary for Mule Deer/Elk Combo + Hunter Harvest + Adult + Female prior.
-          ELKMULE_HH_Female=subset(ELKMULE_HH,sex=="Female" & age_group=="Adult")
-          ElkMuleHHDimF=as.numeric(nrow(ELKMULE_HH_Female))
-      
-          # if mule deer/elk combo hunter-harvest Female Adult is empty.
-          if (ElkMuleHHDimF==0){
-          # Tell the user insufficient records exist.
-          line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
-          write(line,file=model_log_filepath,append=TRUE)
-          } # End if mule deer/elk combo female adult hunter-harvest is empty. 
-      
-          # if mule deer/elk combo hunter-harvest adult Female contains data.            
-          if (ElkMuleHHDimF>0){
-        
-              # Summarize the data. 
-              TABLE96=as.data.frame(ELKMULE_HH_Female%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-              TABLE96_Dim=as.numeric(nrow(TABLE96))
-        
-                  # If only one record exists and its detected, tell user data doesn't fit criteria.
-                  if (TABLE96_Dim==1 & TABLE96$result[1]=="Detected"){
-                  # Write a note that the data does not fit this prior.  
-                  line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
-                  write(line,file=model_log_filepath,append=TRUE) 
-                  } # End if one and detected. 
-        
-                  # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-                  if (TABLE96_Dim==1 & TABLE96$result[1]=="Not Detected"){
-                  # Add the record to the output file. 
-                  OUTPUT=rbind(OUTPUT, TABLE96)
-                  # Add to the report.
-                  line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior fulfilled.</p>"
-                  write(line,file=model_log_filepath,append=TRUE)
-                  } # End if one and not detected. 
-        
-                  # If two or more lines exist in the summary table. 
-                  if (TABLE96_Dim>1){
-          
-                      # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                      # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                      TABLE97=as.data.frame(TABLE96%>%group_by(SubAdminName)%>%filter(n()<2))
-                      TABLE97_Dim=as.numeric(nrow(TABLE97))
-          
-                          # If no records remains after duality filter. 
-                          if (TABLE97_Dim==0){
-                          # Tell the user insufficient records exist.
-                          line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
-                          write(line,file=model_log_filepath,append=TRUE)
-                          } # End if no records exist. 
-          
-                          # If at least one record remains after duality filter. 
-                          if (TABLE97_Dim>0){
-            
-                              # Retain only the non-detect records. 
-                              TABLE98=subset(TABLE97,result=="Not Detected")
-                              TABLE98_Dim=as.numeric(nrow(TABLE98))
-            
-                                  # If no non-detect records remain. 
-                                  if (TABLE98_Dim==0){
-                                  # Tell the user insufficient records exist.
-                                  line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
-                                  write(line,file=model_log_filepath,append=TRUE) 
-                                  } # End if no records exist. 
-            
-                                  # If non-detect records remain. 
-                                  if (TABLE98_Dim>0){
-                                  # Add the record to the output file. 
-                                  OUTPUT=rbind(OUTPUT, TABLE98)
-                                  # Add to the report.
-                                  line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Female: Prior fulfilled.</p>"
-                                  write(line,file=model_log_filepath,append=TRUE)
-                                  } # End if one and not detected. 
-            
-                          } # If at least one record remains after duality filter. 
-                  } # End if two or more lines exist in summary table. 
-            } # End if female adult hunter-harvest contains data. 
+    # If elk clinical suspect contains data.
+    if (ElkCSDim>0){
       
       # PRIOR________________________________________________________________
-      # Get summary for Mule Deer/Elk Combo + Hunter Harvest + Yearling + Female prior.
-      ELKMULE_HH_Female2=subset(ELKMULE_HH,sex=="Female" & age_group=="Yearling")
-      ElkMuleHHDimF2=as.numeric(nrow(ELKMULE_HH_Female2))
+      # Get summary for Elk + Clinical Suspect + All Ages + Female prior.
+      ELK_CS_Female=subset(ELK_CS,sex=="Female")
+      ElkCSDimF=as.numeric(nrow(ELK_CS_Female))
       
-      # if ELKMULE hunter-harvest Female yearling is empty.
-      if (ElkMuleHHDimF2==0){
-      # Tell the user insufficient records exist.
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE)
-      } # End if mule deer/elk combo female yearling hunter-harvest is empty. 
+      # if ELK clinical suspect Female is empty.
+      if (ElkCSDimF==0){
+        # Tell the user insufficient records exist.
+        line="<p>Elk, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)  
+      } # End if female clinical suspect is empty. 
       
-      # if ELKMULE hunter-harvest yearling Female contains data.             
-      if (ElkMuleHHDimF2>0){
+      # if ELK clinical suspect Female contains data.             
+      if (ElkCSDimF>0){
         
-          # Summarize the data. 
-          TABLE99=as.data.frame(ELKMULE_HH_Female2%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-          TABLE99_Dim=as.numeric(nrow(TABLE99))
+        # Replace age data with 'All Ages'. [We do this because the prior for the SpeedGoat Estimation tool is "All Ages.'] 
+        ELK_CS_Female$age_group=rep("All Ages", ElkCSDimF)
         
-              # If only one record exists and its detected, tell user data doesn't fit criteria.
-              if (TABLE99_Dim==1 & TABLE99$result[1]=="Detected"){
-              # Write a note that the data does not fit this prior.  
-              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
-              write(line,file=model_log_filepath,append=TRUE) 
-              } # End if one and detected. 
+        # Summarize the data. 
+        TABLE1=as.data.frame(ELK_CS_Female%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE1_Dim=as.numeric(nrow(TABLE1))
         
-              # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-              if (TABLE99_Dim==1 & TABLE99$result[1]=="Not Detected"){
-              # Add the record to the output file. 
-              OUTPUT=rbind(OUTPUT, TABLE99)
-              # Add to the report.
-              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior fulfilled.</p>"
-              write(line,file=model_log_filepath,append=TRUE)
-              } # End if one and not detected. 
-        
-              # If two or more lines exist in the summary table. 
-              if (TABLE99_Dim>1){
-          
-                  # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                  # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                  TABLE100=as.data.frame(TABLE99%>%group_by(SubAdminName)%>%filter(n()<2))
-                  TABLE100_Dim=as.numeric(nrow(TABLE100))
-          
-                      # If no records remains after duality filter. 
-                      if (TABLE100_Dim==0){
-                      # Tell the user insufficient records exist.
-                      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
-                      write(line,file=model_log_filepath,append=TRUE) 
-                      } # End if no records exist. 
-          
-                      # If at least one record remains after duality filter. 
-                      if (TABLE100_Dim>0){
-            
-                          # Retain only the non-detect records. 
-                          TABLE101=subset(TABLE100,result=="Not Detected")
-                          TABLE101_Dim=as.numeric(nrow(TABLE101))
-            
-                              # If no non-detect records remain. 
-                              if (TABLE101_Dim==0){
-                              # Tell the user insufficient records exist.
-                              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
-                              write(line,file=model_log_filepath,append=TRUE) 
-                              } # End if no records exist. 
-            
-                              # If non-detect records remain. 
-                              if (TABLE101_Dim>0){
-                              # Add the record to the output file. 
-                              OUTPUT=rbind(OUTPUT, TABLE101)
-                              # Add to the report.
-                              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Female: Prior fulfilled.</p>"
-                              write(line,file=model_log_filepath,append=TRUE)
-                              } # End if one and not detected. 
-            
-                      } # If at least one record remains after duality filter. 
-              } # End if two or more lines exist in summary table. 
-      } # End if mule deer/elk combo female yearling hunter-harvest contains data. 
-      
-      # PRIOR________________________________________________________________
-      # Get summary for Mule Deer/Elk Combo + Hunter Harvest + Fawn + Female prior.
-      ELKMULE_HH_Female3=subset(ELKMULE_HH,sex=="Female" & age_group=="Fawn")
-      ElkMuleHHDimF3=as.numeric(nrow(ELKMULE_HH_Female3))
-      
-      # if ELKMULE hunter-harvest Female fawn is empty.
-      if (ElkMuleHHDimF3==0){
-      # Tell the user insufficient records exist.
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
-      write(line,file=model_log_filepath,append=TRUE)
-      } # End if mule deer/elk combo female fawn hunter-harvest is empty. 
-      
-      # if ELKMULE hunter-harvest fawn Female contains data.             
-      if (ElkMuleHHDimF3>0){
-        
-          # Summarize the data. 
-          TABLE102=as.data.frame(ELKMULE_HH_Female3%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-          TABLE102_Dim=as.numeric(nrow(TABLE102))
-        
-          # If only one record exists and its detected, tell user data doesn't fit criteria.
-          if (TABLE102_Dim==1 & TABLE102$result[1]=="Detected"){
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE1_Dim==1 & TABLE1$result[1]=="Detected"){
           # Write a note that the data does not fit this prior.  
-          line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+          line="<p>Elk, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
           write(line,file=model_log_filepath,append=TRUE) 
-          } # End if one and detected. 
+        } # End if one and detected. 
         
-          # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-          if (TABLE102_Dim==1 & TABLE102$result[1]=="Not Detected"){
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE1_Dim==1 & TABLE1$result[1]=="Not Detected"){
           # Add the record to the output file. 
-          OUTPUT=rbind(OUTPUT, TABLE102)
+          OUTPUT=rbind(OUTPUT, TABLE1)
           # Add to the report.
-          line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior fulfilled.</p>"
-          write(line,file=model_log_filepath,append=TRUE)
-          } # End if one and not detected. 
+          line="<p>Elk, Clinical suspect, All Ages, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and not detected. 
         
-          # If two or more lines exist in the summary table. 
-          if (TABLE102_Dim>1){
+        # If two or more lines exist in the summary table. 
+        if (TABLE1_Dim>1){
           
-              # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-              # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-              TABLE103=as.data.frame(TABLE102%>%group_by(SubAdminName)%>%filter(n()<2))
-              TABLE103_Dim=as.numeric(nrow(TABLE103))
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE2=as.data.frame(TABLE1%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE2_Dim=as.numeric(nrow(TABLE2))
           
-                  # If no records remains after duality filter. 
-                  if (TABLE103_Dim==0){
-                  # Tell the user insufficient records exist.
-                  line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
-                  write(line,file=model_log_filepath,append=TRUE)
-                  } # End if no records exist. 
+          # If no records remains after duality filter. 
+          if (TABLE2_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Elk, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
           
-                  # If at least one record remains after duality filter. 
-                  if (TABLE103_Dim>0){
+          # If at least one record remains after duality filter. 
+          if (TABLE2_Dim>0){
             
-                      # Retain only the non-detect records. 
-                      TABLE104=subset(TABLE103,result=="Not Detected")
-                      TABLE104_Dim=as.numeric(nrow(TABLE104))
+            # Retain only the non-detect records. 
+            TABLE3=subset(TABLE2,result=="Not Detected")
+            TABLE3_Dim=as.numeric(nrow(TABLE3))
             
-                          # If no non-detect records remain. 
-                          if (TABLE104_Dim==0){
-                          # Tell the user insufficient records exist.
-                          line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
-                          write(line,file=model_log_filepath,append=TRUE)
-                          } # End if no records exist. 
+            # If no non-detect records remain. 
+            if (TABLE3_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Elk, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE) 
+            } # End if no records exist. 
             
-                          # If non-detect records remain. 
-                          if (TABLE104_Dim>0){
-                          # Add the record to the output file. 
-                          OUTPUT=rbind(OUTPUT, TABLE104)
-                          # Add to the report.
-                          line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Female: Prior fulfilled.</p>"
-                          write(line,file=model_log_filepath,append=TRUE)
-                          } # End if one and not detected. 
+            # If non-detect records remain. 
+            if (TABLE3_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE3)
+              # Add to the report.
+              line="<p>Elk, Clinical suspect, All Ages, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE) 
+            } # End if one and not detected. 
             
-                  } # If at least one record remains after duality filter. 
+          } # If at least one record remains after duality filter. 
         } # End if two or more lines exist in summary table. 
-      } # End if mule deer/elk combo female fawn hunter-harvest contains data.
+      } # End if female clinical suspect contains data. 
+      
+      # PRIOR________________________________________________________________  
+      # Get summary for Elk + Clinical Suspect + All Ages + Male prior.
+      ELK_CS_Male=subset(ELK_CS,sex=="Male")
+      ElkCSDimM=as.numeric(nrow(ELK_CS_Male))
+      
+      # if ELK clinical suspect Male is empty.
+      if (ElkCSDimM==0){
+        # Tell the user insufficient records exist.
+        line="<p>Elk, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if male clinical suspect is empty. 
+      
+      # if ELK clinical suspect Male contains data.              
+      if (ElkCSDimM>0){
+        
+        # Replace age data with 'All Ages'. [We do this because the prior for SpeedGoat Estimation tool is All Ages.] 
+        ELK_CS_Male$age_group=rep("All Ages", ElkCSDimM)
+        
+        # Summarize the data. 
+        TABLE4=as.data.frame(ELK_CS_Male%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE4_Dim=as.numeric(nrow(TABLE4))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE4_Dim==1 & TABLE4$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Elk, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE4_Dim==1 & TABLE4$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE4)
+          # Add to the report.
+          line="<p>Elk, Clinical suspect, All Ages, Male: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE4_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE5=as.data.frame(TABLE4%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE5_Dim=as.numeric(nrow(TABLE5))
+          
+          # If no records remains after duality filter. 
+          if (TABLE5_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Elk, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE5_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE6=subset(TABLE5,result=="Not Detected")
+            TABLE6_Dim=as.numeric(nrow(TABLE6))
+            
+            # If no non-detect records remain. 
+            if (TABLE6_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Elk, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE) 
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE6_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE6)
+              # Add to the report.
+              line="<p>Elk, Clinical suspect, All Ages, Male: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if male clinical suspect contains data. 
+      
+    } # End If elk clinical suspect contains data.
+    
+    # ELK HUNTER HARVESTED ________________________________________________________________        
+    ELK_HH=subset(ELK,sample_source=="Hunter-harvested")
+    ElkHHDim=as.numeric(nrow(ELK_HH))
+    
+    # If elk hunter harvest is empty. 
+    if (ElkHHDim==0){
+      # Tell the user insufficient records exist.
+      line="<p>Elk, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Elk, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Elk, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+    } # End if elk hunter harvest is empty.
+    
+    # If elk hunter harvest contains data.
+    if (ElkHHDim>0){
       
       # PRIOR________________________________________________________________
-      # Get summary for Mule Deer/Elk Combo + Hunter Harvest + Adult + Male prior.
-      ELKMULE_HH_Male=subset(ELKMULE_HH,sex=="Male" & age_group=="Adult")
-      ElkMuleHHDimM=as.numeric(nrow(ELKMULE_HH_Male))
+      # Get summary for Elk + Hunter Harvest + Adult + Female prior.
+      ELK_HH_Female=subset(ELK_HH,sex=="Female" & age_group=="Adult")
+      ElkHHDimFA=as.numeric(nrow(ELK_HH_Female))
       
-      # if ELKMULE hunter-harvest Male is empty.
-      if (ElkMuleHHDimM==0){
+      # if ELK hunter harvest Female Adult is empty.
+      if (ElkHHDimFA==0){
+        # Tell the user insufficient records exist.
+        line="<p>Elk, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if elk female adult hunter harvest is empty. 
+      
+      # if ELK hunter harvest adult Female contains data.            
+      if (ElkHHDimFA>0){
+        
+        # Summarize the data. 
+        TABLE7=as.data.frame(ELK_HH_Female%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE7_Dim=as.numeric(nrow(TABLE7))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE7_Dim==1 & TABLE7$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Elk, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE7_Dim==1 & TABLE7$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE7)
+          # Add to the report.
+          line="<p>Elk, Hunter-harvested, Adult, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE7_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE8=as.data.frame(TABLE7%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE8_Dim=as.numeric(nrow(TABLE8))
+          
+          # If no records remains after duality filter. 
+          if (TABLE8_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Elk, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE8_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE9=subset(TABLE8,result=="Not Detected")
+            TABLE9_Dim=as.numeric(nrow(TABLE9))
+            
+            # If no non-detect records remain. 
+            if (TABLE9_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Elk, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE9_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE9)
+              # Add to the report.
+              line="<p>Elk, Hunter-harvested, Adult, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if female adult hunter harvest contains data. 
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Elk + Hunter Harvest + Yearling + Female prior.
+      ELK_HH_Female2=subset(ELK_HH,sex=="Female" & age_group=="Yearling")
+      ElkHHDimF2=as.numeric(nrow(ELK_HH_Female2))
+      
+      # if ELK hunter harvest Female yearling is empty.
+      if (ElkHHDimF2==0){
+        # Tell the user insufficient records exist.
+        line="<p>Elk, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if elk female yearling hunter harvest is empty. 
+      
+      # if ELK hunter harvest yearling Female contains data.             
+      if (ElkHHDimF2>0){
+        
+        # Summarize the data. 
+        TABLE10=as.data.frame(ELK_HH_Female2%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE10_Dim=as.numeric(nrow(TABLE10))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE10_Dim==1 & TABLE10$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Elk, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE10_Dim==1 & TABLE10$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE10)
+          # Add to the report.
+          line="<p>Elk, Hunter-harvested, Yearling, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE10_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE11=as.data.frame(TABLE10%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE11_Dim=as.numeric(nrow(TABLE11))
+          
+          # If no records remains after duality filter. 
+          if (TABLE11_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Elk, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE11_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE12=subset(TABLE11,result=="Not Detected")
+            TABLE12_Dim=as.numeric(nrow(TABLE12))
+            
+            # If no non-detect records remain. 
+            if (TABLE12_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Elk, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE12_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE12)
+              # Add to the report.
+              line="<p>Elk, Hunter-harvested, Yearling, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if elk female yearling hunter harvest contains data. 
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Elk + Hunter Harvest + Adult + Male prior.
+      ELK_HH_Male=subset(ELK_HH,sex=="Male" & age_group=="Adult")
+      ElkHHDimM=as.numeric(nrow(ELK_HH_Male))
+      
+      # if ELK hunter harvest Male is empty.
+      if (ElkHHDimM==0){
+        # Tell the user insufficient records exist.
+        line="<p>Elk, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if male adult hunter harvest is empty. 
+      
+      # if ELK hunter harvest Male adult contains data.             
+      if (ElkHHDimM>0){
+        
+        # Summarize the data. 
+        TABLE13=as.data.frame(ELK_HH_Male%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE13_Dim=as.numeric(nrow(TABLE13))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE13_Dim==1 & TABLE13$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Elk, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE13_Dim==1 & TABLE13$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE13)
+          # Add to the report.
+          line="<p>Elk, Hunter-harvested, Adult, Male: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE13_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE14=as.data.frame(TABLE13%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE14_Dim=as.numeric(nrow(TABLE14))
+          
+          # If no records remains after duality filter. 
+          if (TABLE14_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Elk, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE) 
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE14_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE15=subset(TABLE14,result=="Not Detected")
+            TABLE15_Dim=as.numeric(nrow(TABLE15))
+            
+            # If no non-detect records remain. 
+            if (TABLE15_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Elk, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE15_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE15)
+              # Add to the report.
+              line="<p>Elk, Hunter-harvested, Adult, Male: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if male hunter-harvest contains data.
+    } # End if elk hunter harvest contains data.
+    
+    # ELK OTHER  ________________________________________________________________         
+    ELK_O=subset(ELK,sample_source!="Clinical suspect" & sample_source!="Hunter-harvested")
+    ElkODim=as.numeric(nrow(ELK_O))
+    
+    # If elk other is empty. 
+    if (ElkODim==0){
       # Tell the user insufficient records exist.
-      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+      line="<p>Elk, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
       write(line,file=model_log_filepath,append=TRUE)
+    } # End elk other is empty. 
+    
+    # If elk other contains data.
+    if (ElkODim>0){
+      
+      # PRIOR________________________________________________________________
+      # Get Elk + Other + All Ages + All Sexes.
+      # Replace age data with 'All Ages'. [We do this because the prior for SpeedGoat Estimation tool is "All Ages.'] 
+      ELK_O$age_group=rep("All Ages", ElkODim)
+      # Replace age data with 'All Ages'. [We do this because the prior for SpeedGoat Estimation tool is "All Sexes.'] 
+      ELK_O$sex=rep("All Sexes", ElkODim)
+      # Replace sample_source with 'Other'. [We do this because the prior for SpeedGoat Estimation tool is "Other.'] 
+      ELK_O$sample_source=rep("Other", ElkODim)
+      
+      # Summarize the data. 
+      TABLE16=as.data.frame(ELK_O%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+      TABLE16_Dim=as.numeric(nrow(TABLE16))
+      
+      # If only one record exists and its detected, tell user data doesn't fit criteria.
+      if (TABLE16_Dim==1 & TABLE16$result[1]=="Detected"){
+        # Write a note that the data does not fit this prior.  
+        line="<p>Elk, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE) 
+      } # End if one and detected. 
+      
+      # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+      if (TABLE16_Dim==1 & TABLE16$result[1]=="Not Detected"){
+        # Add the record to the output file. 
+        OUTPUT=rbind(OUTPUT, TABLE16)
+        # Add to the report.
+        line="<p>Elk, Other, All Ages, All Sexes: Prior fulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if one and not detected. 
+      
+      # If two or more lines exist in the summary table. 
+      if (TABLE16_Dim>1){
+        
+        # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+        # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+        TABLE17=as.data.frame(TABLE16%>%group_by(SubAdminName)%>%filter(n()<2))
+        TABLE17_Dim=as.numeric(nrow(TABLE17))
+        
+        # If no records remains after duality filter. 
+        if (TABLE17_Dim==0){
+          # Tell the user insufficient records exist.
+          line="<p>Elk, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if no records exist. 
+        
+        # If at least one record remains after duality filter. 
+        if (TABLE17_Dim>0){
+          
+          # Retain only the non-detect records. 
+          TABLE18=subset(TABLE17,result=="Not Detected")
+          TABLE18_Dim=as.numeric(nrow(TABLE18))
+          
+          # If no non-detect records remain. 
+          if (TABLE18_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Elk, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If non-detect records remain. 
+          if (TABLE18_Dim>0){
+            # Add the record to the output file. 
+            OUTPUT=rbind(OUTPUT, TABLE18)
+            # Add to the report.
+            line="<p>Elk, Other, All Ages, All Sexes: Prior fulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if one and not detected. 
+          
+        } # If at least one record remains after duality filter. 
+      } # End if two or more lines exist in summary table. 
+    } # End if elk other contains data.
+    
+  } # End if elk data globally exists.
+  Elk_OUTPUT=OUTPUT
+  
+  # Run Mule Deer Second. -----------------
+  # Initialize mule deer output. 
+  OUTPUT=c()
+  Deer_OUTPUT=c()
+  
+  # If mule deer data does not globally exist. 
+  if (MuleDim==0){
+    # Add information to the report.
+    line="<p>You selected the elk/mule deer combination option, but there does not exist any mule deer testing records in the season-year of interest. </p>"
+    write(line,file=model_log_filepath,append=TRUE)
+    # Only quit the session if both elk and mule deer are non-existent. 
+    if (QUIT==1){quit(status=70)}
+  } # End if mule deer data does not globally exist.
+  
+  # If mule deer data globally exists. 
+  if (MuleDim>0){
+    
+    # Opening Note. 
+    # As of August 2024, SpeedGoat Estimation tool mule deer priors are limited to Clinical suspect, 
+    # Hunter-harvested, and Other. 
+    
+    # MULE CLINICAL SUSPECT _______________________________________________________ 
+    MULE_CS=subset(MULE,sample_source=="Clinical suspect")
+    MuleCSDim=as.numeric(nrow(MULE_CS))
+    
+    # If mule deer clinical suspect is empty. 
+    if (MuleCSDim==0){
+      # Tell the user insufficient records exist.
+      line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)  
+      line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE) 
+    } # End mule deer clinical suspect is empty. 
+    
+    # If mule deer clinical suspect contains data.
+    if (MuleCSDim>0){
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Mule Deer + Clinical Suspect + All Ages + Female prior.
+      MULE_CS_Female=subset(MULE_CS,sex=="Female")
+      MuleCSDimF=as.numeric(nrow(MULE_CS_Female))
+      
+      # if MULE clinical suspect Female is empty.
+      if (MuleCSDimF==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE) 
+      } # End if female clinical suspect is empty. 
+      
+      # if MULE clinical suspect Female contains data.             
+      if (MuleCSDimF>0){
+        
+        # Replace age data with 'All Ages'. [We do this because the prior for the SpeedGoat Estimation tool is "All Ages.'] 
+        MULE_CS_Female$age_group=rep("All Ages", MuleCSDimF)
+        
+        # Summarize the data. 
+        TABLE19=as.data.frame(MULE_CS_Female%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE19_Dim=as.numeric(nrow(TABLE19))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE19_Dim==1 & TABLE19$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE19_Dim==1 & TABLE19$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE19)
+          # Add to the report.
+          line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE19_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE20=as.data.frame(TABLE19%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE20_Dim=as.numeric(nrow(TABLE20))
+          
+          # If no records remains after duality filter. 
+          if (TABLE20_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)  
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE20_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE21=subset(TABLE20,result=="Not Detected")
+            TABLE21_Dim=as.numeric(nrow(TABLE21))
+            
+            # If no non-detect records remain. 
+            if (TABLE21_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE) 
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE21_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE21)
+              # Add to the report.
+              line="<p>Mule Deer, Clinical suspect, All Ages, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if female clinical suspect contains data. 
+      
+      # PRIOR________________________________________________________________  
+      # Get summary for Mule Deer + Clinical Suspect + All Ages + Male prior.
+      MULE_CS_Male=subset(MULE_CS,sex=="Male")
+      MuleCSDimM=as.numeric(nrow(MULE_CS_Male))
+      
+      # if MULE clinical suspect Male is empty.
+      if (MuleCSDimM==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE) 
+      } # End if male clinical suspect is empty. 
+      
+      # if MULE clinical suspect Male contains data.              
+      if (MuleCSDimM>0){
+        
+        # Replace age data with 'All Ages'. [We do this because the prior for the SpeedGoat Estimation tool is All Ages.] 
+        MULE_CS_Male$age_group=rep("All Ages", MuleCSDimM)
+        
+        # Summarize the data. 
+        TABLE22=as.data.frame(MULE_CS_Male%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE22_Dim=as.numeric(nrow(TABLE22))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE22_Dim==1 & TABLE22$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE22_Dim==1 & TABLE22$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE22)
+          # Add to the report.
+          line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE22_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE23=as.data.frame(TABLE22%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE23_Dim=as.numeric(nrow(TABLE23))
+          
+          # If no records remains after duality filter. 
+          if (TABLE23_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE) 
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE23_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE24=subset(TABLE23,result=="Not Detected")
+            TABLE24_Dim=as.numeric(nrow(TABLE24))
+            
+            # If no non-detect records remain. 
+            if (TABLE24_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE) 
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE24_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE24)
+              # Add to the report.
+              line="<p>Mule Deer, Clinical suspect, All Ages, Male: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if male clinical suspect contains data. 
+    } # End If mule deer clinical suspect contains data.
+    
+    # MULE HUNTER HARVESTED ________________________________________________________________        
+    MULE_HH=subset(MULE,sample_source=="Hunter-harvested")
+    MuleHHDim=as.numeric(nrow(MULE_HH))
+    
+    # If mule deer hunter harvest is empty. 
+    if (MuleHHDim==0){
+      # Tell the user insufficient records exist.
+      line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+      line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE)
+    } # End if mule deer hunter harvest is empty.
+    
+    # If mule deer hunter harvest contains data.
+    if (MuleHHDim>0){
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Mule Deer + Hunter Harvest + Adult + Female prior.
+      MULE_HH_Female=subset(MULE_HH,sex=="Female" & age_group=="Adult")
+      MuleHHDimF=as.numeric(nrow(MULE_HH_Female))
+      
+      # if mule deer hunter-harvest Female Adult is empty.
+      if (MuleHHDimF==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE) 
+      } # End if mule deer female adult hunter-harvest is empty. 
+      
+      # if mule deer hunter-harvest adult Female contains data.            
+      if (MuleHHDimF>0){
+        
+        # Summarize the data. 
+        TABLE25=as.data.frame(MULE_HH_Female%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE25_Dim=as.numeric(nrow(TABLE25))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE25_Dim==1 & TABLE25$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE25_Dim==1 & TABLE25$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE25)
+          # Add to the report.
+          line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE25_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE26=as.data.frame(TABLE25%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE26_Dim=as.numeric(nrow(TABLE26))
+          
+          # If no records remains after duality filter. 
+          if (TABLE26_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE26_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE27=subset(TABLE26,result=="Not Detected")
+            TABLE27_Dim=as.numeric(nrow(TABLE27))
+            
+            # If no non-detect records remain. 
+            if (TABLE27_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE27_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE27)
+              # Add to the report.
+              line="<p>Mule Deer, Hunter-harvested, Adult, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if female adult hunter-harvest contains data. 
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Mule Deer + Hunter Harvest + Yearling + Female prior.
+      MULE_HH_Female2=subset(MULE_HH,sex=="Female" & age_group=="Yearling")
+      MuleHHDimF2=as.numeric(nrow(MULE_HH_Female2))
+      
+      # if MULE hunter-harvest Female yearling is empty.
+      if (MuleHHDimF2==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if mule deer female yearling hunter-harvest is empty. 
+      
+      # if MULE hunter-harvest yearling Female contains data.             
+      if (MuleHHDimF2>0){
+        
+        # Summarize the data. 
+        TABLE28=as.data.frame(MULE_HH_Female2%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE28_Dim=as.numeric(nrow(TABLE28))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE28_Dim==1 & TABLE28$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>" 
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE28_Dim==1 & TABLE28$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE28)
+          # Add to the report.
+          line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE28_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE29=as.data.frame(TABLE28%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE29_Dim=as.numeric(nrow(TABLE29))
+          
+          # If no records remains after duality filter. 
+          if (TABLE29_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE29_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE30=subset(TABLE29,result=="Not Detected")
+            TABLE30_Dim=as.numeric(nrow(TABLE30))
+            
+            # If no non-detect records remain. 
+            if (TABLE30_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE30_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE30)
+              # Add to the report.
+              line="<p>Mule Deer, Hunter-harvested, Yearling, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if mule deer female yearling hunter-harvest contains data. 
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Mule Deer + Hunter Harvest + Fawn + Female prior.
+      MULE_HH_Female3=subset(MULE_HH,sex=="Female" & age_group=="Fawn")
+      MuleHHDimF3=as.numeric(nrow(MULE_HH_Female3))
+      
+      # if MULE hunter-harvest Female fawn is empty.
+      if (MuleHHDimF3==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if mule deer female fawn hunter-harvest is empty. 
+      
+      # if MULE hunter-harvest fawn Female contains data.             
+      if (MuleHHDimF3>0){
+        
+        # Summarize the data. 
+        TABLE31=as.data.frame(MULE_HH_Female3%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE31_Dim=as.numeric(nrow(TABLE31))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE31_Dim==1 & TABLE31$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE31_Dim==1 & TABLE31$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE31)
+          # Add to the report.
+          line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE31_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE32=as.data.frame(TABLE31%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE32_Dim=as.numeric(nrow(TABLE32))
+          
+          # If no records remains after duality filter. 
+          if (TABLE32_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE) 
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE32_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE33=subset(TABLE32,result=="Not Detected")
+            TABLE33_Dim=as.numeric(nrow(TABLE33))
+            
+            # If no non-detect records remain. 
+            if (TABLE33_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE33_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE33)
+              # Add to the report.
+              line="<p>Mule Deer, Hunter-harvested, Fawn, Female: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if mule deer female fawn hunter-harvest contains data.
+      
+      # PRIOR________________________________________________________________
+      # Get summary for Mule + Hunter Harvest + Adult + Male prior.
+      MULE_HH_Male=subset(MULE_HH,sex=="Male" & age_group=="Adult")
+      MuleHHDimM=as.numeric(nrow(MULE_HH_Male))
+      
+      # if MULE hunter-harvest Male is empty.
+      if (MuleHHDimM==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
       } # End if male adult hunter-harvest is empty. 
       
-      # if ELKMULE hunter-harvest Male adult contains data.             
-      if (ElkMuleHHDimM>0){
+      # if MULE hunter-harvest Male adult contains data.             
+      if (MuleHHDimM>0){
         
-          # Summarize the data. 
-          TABLE105=as.data.frame(ELKMULE_HH_Male%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-          TABLE105_Dim=as.numeric(nrow(TABLE105))
+        # Summarize the data. 
+        TABLE34=as.data.frame(MULE_HH_Male%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE34_Dim=as.numeric(nrow(TABLE34))
         
-              # If only one record exists and its detected, tell user data doesn't fit criteria.
-              if (TABLE105_Dim==1 & TABLE105$result[1]=="Detected"){
-              # Write a note that the data does not fit this prior.  
-              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
-              write(line,file=model_log_filepath,append=TRUE) 
-              } # End if one and detected. 
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE34_Dim==1 & TABLE34$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
         
-              # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-              if (TABLE105_Dim==1 & TABLE105$result[1]=="Not Detected"){
-              # Add the record to the output file. 
-              OUTPUT=rbind(OUTPUT, TABLE105)
-              # Add to the report.
-              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior fulfilled.</p>"
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE34_Dim==1 & TABLE34$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE34)
+          # Add to the report.
+          line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE34_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE35=as.data.frame(TABLE34%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE35_Dim=as.numeric(nrow(TABLE35))
+          
+          # If no records remains after duality filter. 
+          if (TABLE35_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE35_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE36=subset(TABLE35,result=="Not Detected")
+            TABLE36_Dim=as.numeric(nrow(TABLE36))
+            
+            # If no non-detect records remain. 
+            if (TABLE36_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
               write(line,file=model_log_filepath,append=TRUE)
-              } # End if one and not detected. 
-        
-              # If two or more lines exist in the summary table. 
-              if (TABLE105_Dim>1){
-          
-                  # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                  # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                  TABLE106=as.data.frame(TABLE105%>%group_by(SubAdminName)%>%filter(n()<2))
-                  TABLE106_Dim=as.numeric(nrow(TABLE106))
-          
-                      # If no records remains after duality filter. 
-                      if (TABLE106_Dim==0){
-                      # Tell the user insufficient records exist.
-                      line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
-                      write(line,file=model_log_filepath,append=TRUE)
-                      } # End if no records exist. 
-          
-                      # If at least one record remains after duality filter. 
-                      if (TABLE106_Dim>0){
+            } # End if no records exist. 
             
-                          # Retain only the non-detect records. 
-                          TABLE107=subset(TABLE106,result=="Not Detected")
-                          TABLE107_Dim=as.numeric(nrow(TABLE107))
-            
-                              # If no non-detect records remain. 
-                              if (TABLE107_Dim==0){
-                              # Tell the user insufficient records exist.
-                              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior unfulfilled.</p>"
-                              write(line,file=model_log_filepath,append=TRUE)
-                              } # End if no records exist. 
-            
-                              # If non-detect records remain. 
-                              if (TABLE107_Dim>0){
-                              # Add the record to the output file. 
-                              OUTPUT=rbind(OUTPUT, TABLE107)
-                              # Add to the report.
-                              line="<p>Elk/Mule Deer Combined, Hunter-harvested, Adult, Male: Prior fulfilled.</p>"
-                              write(line,file=model_log_filepath,append=TRUE)
-                              } # End if one and not detected. 
-            
-                      } # If at least one record remains after duality filter. 
-              } # End if two or more lines exist in summary table. 
-      } # End if adult male hunter-harvest contains data.
-    
-    # PRIOR________________________________________________________________
-    # Get summary for Mule Deer/Elk Combo + Hunter Harvest + Yearling + Male prior.
-    ELKMULE_HH_Male2=subset(ELKMULE_HH,sex=="Male" & age_group=="Yearling")
-    ElkMuleHHDimM2=as.numeric(nrow(ELKMULE_HH_Male2))
-    
-    # if ELKMULE hunter-harvest Male yearling is empty.
-    if (ElkMuleHHDimM2==0){
-    # Tell the user insufficient records exist.
-    line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
-    write(line,file=model_log_filepath,append=TRUE)
-    } # End if mule deer/elk combo male yearling hunter-harvest is empty. 
-    
-    # if ELKMULE hunter-harvest yearling Male contains data.             
-    if (ElkMuleHHDimM2>0){
-      
-        # Summarize the data. 
-        TABLE108=as.data.frame(ELKMULE_HH_Male2%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-        TABLE108_Dim=as.numeric(nrow(TABLE108))
-      
-            # If only one record exists and its detected, tell user data doesn't fit criteria.
-            if (TABLE108_Dim==1 & TABLE108$result[1]=="Detected"){
-            # Write a note that the data does not fit this prior.  
-            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
-            write(line,file=model_log_filepath,append=TRUE) 
-            } # End if one and detected. 
-      
-            # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-            if (TABLE108_Dim==1 & TABLE108$result[1]=="Not Detected"){
-            # Add the record to the output file. 
-            OUTPUT=rbind(OUTPUT, TABLE108)
-            # Add to the report.
-            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior fulfilled.</p>"
-            write(line,file=model_log_filepath,append=TRUE)
+            # If non-detect records remain. 
+            if (TABLE36_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE36)
+              # Add to the report.
+              line="<p>Mule Deer, Hunter-harvested, Adult, Male: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
             } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if male adult hunter-harvest contains data.
       
-            # If two or more lines exist in the summary table. 
-            if (TABLE108_Dim>1){
-        
-                # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                TABLE109=as.data.frame(TABLE108%>%group_by(SubAdminName)%>%filter(n()<2))
-                TABLE109_Dim=as.numeric(nrow(TABLE109))
-        
-                    # If no records remains after duality filter. 
-                    if (TABLE109_Dim==0){
-                    # Tell the user insufficient records exist.
-                    line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
-                    write(line,file=model_log_filepath,append=TRUE)
-                    } # End if no records exist. 
-        
-                    # If at least one record remains after duality filter. 
-                    if (TABLE109_Dim>0){
-          
-                        # Retain only the non-detect records. 
-                        TABLE110=subset(TABLE109,result=="Not Detected")
-                        TABLE110_Dim=as.numeric(nrow(TABLE110))
-          
-                            # If no non-detect records remain. 
-                            if (TABLE110_Dim==0){
-                            # Tell the user insufficient records exist.
-                            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
-                            write(line,file=model_log_filepath,append=TRUE)
-                            } # End if no records exist. 
-          
-                            # If non-detect records remain. 
-                            if (TABLE110_Dim>0){
-                            # Add the record to the output file. 
-                            OUTPUT=rbind(OUTPUT, TABLE110)
-                            # Add to the report.
-                            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Yearling, Male: Prior fulfilled.</p>"
-                            write(line,file=model_log_filepath,append=TRUE)
-                            } # End if one and not detected. 
-          
-                    } # If at least one record remains after duality filter. 
-            } # End if two or more lines exist in summary table. 
-    } # End if mule deer/elk combo male yearling hunter-harvest contains data. 
-    
-    # PRIOR________________________________________________________________
-    # Get summary for Mule Deer/Elk Combo + Hunter Harvest + Fawn + Male prior.
-    ELKMULE_HH_Male3=subset(ELKMULE_HH,sex=="Male" & age_group=="Fawn")
-    ElkMuleHHDimM3=as.numeric(nrow(ELKMULE_HH_Male3))
-    
-    # if ELKMULE hunter-harvest Male fawn is empty.
-    if (ElkMuleHHDimM3==0){
-    # Tell the user insufficient records exist.
-    line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
-    write(line,file=model_log_filepath,append=TRUE)
-    } # End if mule deer/elk combo male fawn hunter-harvest is empty. 
-    
-    # if ELKMULE hunter-harvest fawn Male contains data.             
-    if (ElkMuleHHDimM3>0){
+      # PRIOR________________________________________________________________
+      # Get summary for Mule Deer + Hunter Harvest + Yearling + Male prior.
+      MULE_HH_Male2=subset(MULE_HH,sex=="Male" & age_group=="Yearling")
+      MuleHHDimM2=as.numeric(nrow(MULE_HH_Male2))
       
+      # if MULE hunter-harvest Male yearling is empty.
+      if (MuleHHDimM2==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if mule deer male yearling hunter-harvest is empty. 
+      
+      # if MULE hunter-harvest yearling Male contains data.             
+      if (MuleHHDimM2>0){
+        
         # Summarize the data. 
-        TABLE111=as.data.frame(ELKMULE_HH_Male3%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-        TABLE111_Dim=as.numeric(nrow(TABLE111))
-      
-            # If only one record exists and its detected, tell user data doesn't fit criteria.
-            if (TABLE111_Dim==1 & TABLE111$result[1]=="Detected"){
-            # Write a note that the data does not fit this prior.  
-            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
-            write(line,file=model_log_filepath,append=TRUE) 
-            } # End if one and detected. 
-      
-            # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-            if (TABLE111_Dim==1 & TABLE111$result[1]=="Not Detected"){
-            # Add the record to the output file. 
-            OUTPUT=rbind(OUTPUT, TABLE111)
-            # Add to the report.
-            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior fulfilled.</p>"
+        TABLE37=as.data.frame(MULE_HH_Male2%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE37_Dim=as.numeric(nrow(TABLE37))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE37_Dim==1 & TABLE37$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE37_Dim==1 & TABLE37$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE37)
+          # Add to the report.
+          line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE37_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE38=as.data.frame(TABLE37%>%group_by(SubAdminName)%>%filter(n()<2))
+          TABLE38_Dim=as.numeric(nrow(TABLE38))
+          
+          # If no records remains after duality filter. 
+          if (TABLE38_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
             write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE38_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE39=subset(TABLE38,result=="Not Detected")
+            TABLE39_Dim=as.numeric(nrow(TABLE39))
+            
+            # If no non-detect records remain. 
+            if (TABLE39_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE39_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE39)
+              # Add to the report.
+              line="<p>Mule Deer, Hunter-harvested, Yearling, Male: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
             } # End if one and not detected. 
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if mule deer male yearling hunter-harvest contains data. 
       
-            # If two or more lines exist in the summary table. 
-            if (TABLE111_Dim>1){
+      # PRIOR________________________________________________________________
+      # Get summary for Mule Deer + Hunter Harvest + Fawn + Male prior.
+      MULE_HH_Male3=subset(MULE_HH,sex=="Male" & age_group=="Fawn")
+      MuleHHDimM3=as.numeric(nrow(MULE_HH_Male3))
+      
+      # if MULE hunter-harvest Male fawn is empty.
+      if (MuleHHDimM3==0){
+        # Tell the user insufficient records exist.
+        line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE) 
+      } # End if mule deer male fawn hunter-harvest is empty. 
+      
+      # if MULE hunter-harvest fawn Male contains data.             
+      if (MuleHHDimM3>0){
         
-                # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                TABLE112=as.data.frame(TABLE111%>%group_by(SubAdminName)%>%filter(n()<2))  
-                TABLE112_Dim=as.numeric(nrow(TABLE112))
-        
-                    # If no records remains after duality filter. 
-                    if (TABLE112_Dim==0){
-                    # Tell the user insufficient records exist.
-                    line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
-                    write(line,file=model_log_filepath,append=TRUE)
-                    } # End if no records exist. 
-        
-                    # If at least one record remains after duality filter. 
-                    if (TABLE112_Dim>0){
-          
-                        # Retain only the non-detect records. 
-                        TABLE113=subset(TABLE112,result=="Not Detected")
-                        TABLE113_Dim=as.numeric(nrow(TABLE113))
-          
-                            # If no non-detect records remain. 
-                            if (TABLE113_Dim==0){
-                            # Tell the user insufficient records exist.
-                            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
-                            write(line,file=model_log_filepath,append=TRUE)
-                            } # End if no records exist. 
-          
-                            # If non-detect records remain. 
-                            if (TABLE113_Dim>0){
-                            # Add the record to the output file. 
-                            OUTPUT=rbind(OUTPUT, TABLE113)
-                            # Add to the report.
-                            line="<p>Elk/Mule Deer Combined, Hunter-harvested, Fawn, Male: Prior fulfilled.</p>"
-                            write(line,file=model_log_filepath,append=TRUE)
-                            } # End if one and not detected. 
-          
-                    } # If at least one record remains after duality filter. 
-            } # End if two or more lines exist in summary table. 
-    } # End if mule deer/elk combo male fawn hunter-harvest contains data. 
-    
-} # End if combo HH contains data.  
-      
-    # ELKMULE OTHER  ________________________________________________________________         
-    ELKMULE_O=subset(ELKMULE,sample_source!="Clinical suspect" & sample_source!="Hunter-harvested")
-    ElkMuleODim=as.numeric(nrow(ELKMULE_O))
-    
-    # If mule deer/elk combo other is empty. 
-    if (ElkMuleODim==0){
-    # Tell the user insufficient records exist.
-    line="<p>Elk/Mule Deer Combined, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
-    write(line,file=model_log_filepath,append=TRUE)
-    } # End mule deer/elk combo other is empty. 
-    
-    # If mule deer/elk combo other contains data.
-    if (ElkMuleODim>0){
-      
-        # PRIOR________________________________________________________________
-        # Get Mule Deer/Elk Combo + Other + All Ages + All Sexes.
-        # Replace age data with 'All Ages'. [We do this because SpeedGoat is "All Ages.'] 
-        ELKMULE_O$age_group=rep("All Ages", ElkMuleODim)
-        # Replace age data with 'All Ages'. [We do this because SpeedGoat is "All Sexes.'] 
-        ELKMULE_O$sex=rep("All Sexes", ElkMuleODim)
-        # Replace sample source with 'Other'. [We do this because SpeedGoat is "Other.'] 
-        ELKMULE_O$sample_source=rep("Other", ElkMuleODim)
-      
         # Summarize the data. 
-        TABLE114=as.data.frame(ELKMULE_O%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
-        TABLE114_Dim=as.numeric(nrow(TABLE114))
-      
-            # If only one record exists and its detected, tell user data doesn't fit criteria.
-            if (TABLE114_Dim==1 & TABLE114$result[1]=="Detected"){
-            # Write a note that the data does not fit this prior.  
-            line="<p>Elk/Mule Deer Combined, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+        TABLE40=as.data.frame(MULE_HH_Male3%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+        TABLE40_Dim=as.numeric(nrow(TABLE40))
+        
+        # If only one record exists and its detected, tell user data doesn't fit criteria.
+        if (TABLE40_Dim==1 & TABLE40$result[1]=="Detected"){
+          # Write a note that the data does not fit this prior.  
+          line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE) 
+        } # End if one and detected. 
+        
+        # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+        if (TABLE40_Dim==1 & TABLE40$result[1]=="Not Detected"){
+          # Add the record to the output file. 
+          OUTPUT=rbind(OUTPUT, TABLE40)
+          # Add to the report.
+          line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior fulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)
+        } # End if one and not detected. 
+        
+        # If two or more lines exist in the summary table. 
+        if (TABLE40_Dim>1){
+          
+          # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+          # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+          TABLE42=as.data.frame(TABLE40%>%group_by(SubAdminName)%>%filter(n()<2)) # Note the random skip of 41. It is ok. 
+          TABLE42_Dim=as.numeric(nrow(TABLE42))
+          
+          # If no records remains after duality filter. 
+          if (TABLE42_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
             write(line,file=model_log_filepath,append=TRUE) 
-            } # End if one and detected. 
-      
-            # If only one record exists and its not detected, store the output for use in the Estimation tool. 
-            if (TABLE114_Dim==1 & TABLE114$result[1]=="Not Detected"){
-            # Add the record to the output file. 
-            OUTPUT=rbind(OUTPUT, TABLE114)
-            # Add to the report.
-            line="<p>Elk/Mule Deer Combined, Other, All Ages, All Sexes: Prior fulfilled.</p>"
-            write(line,file=model_log_filepath,append=TRUE)
+          } # End if no records exist. 
+          
+          # If at least one record remains after duality filter. 
+          if (TABLE42_Dim>0){
+            
+            # Retain only the non-detect records. 
+            TABLE43=subset(TABLE42,result=="Not Detected")
+            TABLE43_Dim=as.numeric(nrow(TABLE43))
+            
+            # If no non-detect records remain. 
+            if (TABLE43_Dim==0){
+              # Tell the user insufficient records exist.
+              line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior unfulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE) 
+            } # End if no records exist. 
+            
+            # If non-detect records remain. 
+            if (TABLE43_Dim>0){
+              # Add the record to the output file. 
+              OUTPUT=rbind(OUTPUT, TABLE43)
+              # Add to the report.
+              line="<p>Mule Deer, Hunter-harvested, Fawn, Male: Prior fulfilled.</p>"
+              write(line,file=model_log_filepath,append=TRUE)
             } # End if one and not detected. 
-      
-            # If two or more lines exist in the summary table. 
-            if (TABLE114_Dim>1){
-        
-                # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
-                # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
-                TABLE115=as.data.frame(TABLE114%>%group_by(SubAdminName)%>%filter(n()<2))
-                TABLE115_Dim=as.numeric(nrow(TABLE115))
-        
-                    # If no records remains after duality filter. 
-                    if (TABLE115_Dim==0){
-                    # Tell the user insufficient records exist.
-                    line="<p>Elk/Mule Deer Combined, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
-                    write(line,file=model_log_filepath,append=TRUE)
-                    } # End if no records exist. 
-        
-                    # If at least one record remains after duality filter. 
-                    if (TABLE115_Dim>0){
-          
-                        # Retain only the non-detect records. 
-                        TABLE116=subset(TABLE115,result=="Not Detected")
-                        TABLE116_Dim=as.numeric(nrow(TABLE116))
-          
-                        # If no non-detect records remain. 
-                        if (TABLE116_Dim==0){
-                        # Tell the user insufficient records exist.
-                        line="<p>Elk/Mule Deer Combined, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
-                        write(line,file=model_log_filepath,append=TRUE) 
-                        } # End if no records exist. 
-          
-                        # If non-detect records remain. 
-                        if (TABLE116_Dim>0){
-                        # Add the record to the output file. 
-                        OUTPUT=rbind(OUTPUT, TABLE116)
-                        # Add to the report.
-                        line="<p>Elk/Mule Deer Combined, Other, All Ages, All Sexes: Prior fulfilled.</p>"
-                        write(line,file=model_log_filepath,append=TRUE)
-                        } # End if one and not detected. 
-          
-                    } # If at least one record remains after duality filter. 
-              } # End if two or more lines exist in summary table. 
-      } # End if mule deer/elk combo other contains data.
+            
+          } # If at least one record remains after duality filter. 
+        } # End if two or more lines exist in summary table. 
+      } # End if mule deer male fawn hunter-harvest contains data.
+    } # #End if mule deer hunter harvest contains data. 
     
-  } # End if mule deer/elk combo data globally exists.
+    # MULE OTHER  ________________________________________________________________         
+    MULE_O=subset(MULE,sample_source!="Clinical suspect" & sample_source!="Hunter-harvested")
+    MuleODim=as.numeric(nrow(MULE_O))
+    
+    # If mule deer other is empty. 
+    if (MuleODim==0){
+      # Tell the user insufficient records exist.
+      line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+      write(line,file=model_log_filepath,append=TRUE) 
+    } # End mule deer other is empty. 
+    
+    # If mule deer other contains data.
+    if (MuleODim>0){
+      
+      # PRIOR________________________________________________________________
+      # Get Mule + Other + All Ages + All Sexes.
+      # Replace age data with 'All Ages'. [We do this because the prior for the SpeedGoat Estimation tool is "All Ages.'] 
+      MULE_O$age_group=rep("All Ages", MuleODim)
+      # Replace age data with 'All Ages'. [We do this because the prior for the SpeedGoat Estimation tool is "All Sexes.'] 
+      MULE_O$sex=rep("All Sexes", MuleODim)
+      # Replace sample source with 'Other'. [We do this because the prior for the SpeedGoat Estimation tool is "Other.'] 
+      MULE_O$sample_source=rep("Other", MuleODim)
+      
+      # Summarize the data. 
+      TABLE44=as.data.frame(MULE_O%>%group_by(SubAdminName,species,sample_source,age_group,sex)%>%count(result))
+      TABLE44_Dim=as.numeric(nrow(TABLE44))
+      
+      # If only one record exists and its detected, tell user data doesn't fit criteria.
+      if (TABLE44_Dim==1 & TABLE44$result[1]=="Detected"){
+        # Write a note that the data does not fit this prior.  
+        line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE) 
+      } # End if one and detected. 
+      
+      # If only one record exists and its not detected, store the output for use in the Estimation tool. 
+      if (TABLE44_Dim==1 & TABLE44$result[1]=="Not Detected"){
+        # Add the record to the output file. 
+        OUTPUT=rbind(OUTPUT, TABLE44)
+        # Add to the report.
+        line="<p>Mule Deer, Other, All Ages, All Sexes: Prior fulfilled.</p>"
+        write(line,file=model_log_filepath,append=TRUE)
+      } # End if one and not detected. 
+      
+      # If two or more lines exist in the summary table. 
+      if (TABLE44_Dim>1){
+        
+        # If a subadmin area shows up twice in the table, that means it has both positives and negatives, and is therefore ineligible. 
+        # Filter the table only include subadmin areas that show up once. [i.e., Completely remove subadmin areas that show up twice.]
+        TABLE45=as.data.frame(TABLE44%>%group_by(SubAdminName)%>%filter(n()<2))
+        TABLE45_Dim=as.numeric(nrow(TABLE45))
+        
+        # If no records remains after duality filter. 
+        if (TABLE45_Dim==0){
+          # Tell the user insufficient records exist.
+          line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+          write(line,file=model_log_filepath,append=TRUE)  
+        } # End if no records exist. 
+        
+        # If at least one record remains after duality filter. 
+        if (TABLE45_Dim>0){
+          
+          # Retain only the non-detect records. 
+          TABLE46=subset(TABLE45,result=="Not Detected")
+          TABLE46_Dim=as.numeric(nrow(TABLE46))
+          
+          # If no non-detect records remain. 
+          if (TABLE46_Dim==0){
+            # Tell the user insufficient records exist.
+            line="<p>Mule Deer, Other, All Ages, All Sexes: Prior unfulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE) 
+          } # End if no records exist. 
+          
+          # If non-detect records remain. 
+          if (TABLE46_Dim>0){
+            # Add the record to the output file. 
+            OUTPUT=rbind(OUTPUT, TABLE46)
+            # Add to the report.
+            line="<p>Mule Deer, Other, All Ages, All Sexes: Prior fulfilled.</p>"
+            write(line,file=model_log_filepath,append=TRUE)
+          } # End if one and not detected. 
+          
+        } # If at least one record remains after duality filter. 
+      } # End if two or more lines exist in summary table. 
+    } # End if mule deer other contains data.
+    
+  } # End if mule deer data globally exists.
+  Deer_OUTPUT=OUTPUT
+  
+  # Combine deer and elk into into a single output.
+  # If both elk and mule deer are null, no ouput exists. 
+  if (is.null(Elk_OUTPUT) & is.null(Deer_OUTPUT)){OUTPUT=c()}
+  # If elk exists but deer does not, only elk output exists.
+  if (!is.null(Elk_OUTPUT) & is.null(Deer_OUTPUT)){OUTPUT=Elk_OUTPUT}
+  # If elk does not exist but deer does, only deer output exists. 
+  if (is.null(Elk_OUTPUT) & !is.null(Deer_OUTPUT)){OUTPUT=Deer_OUTPUT}
+  # If both elk and deer exist, then combine both outputs. 
+  if (!is.null(Elk_OUTPUT) & !is.null(Deer_OUTPUT)){OUTPUT=rbind(Elk_OUTPUT,Deer_OUTPUT)}
 } # End if elk/deer combo selected. 
   
 # ______________________________________________________________________________    
@@ -3790,6 +4337,8 @@ if(params$species=="Elk/Mule Deer Combined"){
 
       # Remove the columns that are unneeded by SpeedGoat. 
       MATRIX=as.data.frame(cbind(OUTPUT$SubAdminName,OUTPUT$species,OUTPUT$sample_source,OUTPUT$age_group,OUTPUT$sex,OUTPUT$n))
+
+      # Get the dimension of the output. 
       MATRIXDim=as.numeric(nrow(MATRIX))
   
       # Add the default column.
