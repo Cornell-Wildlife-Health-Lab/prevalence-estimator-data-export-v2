@@ -1,1 +1,1 @@
-This is the repository for the Prevalence Estimator Data Export in the CWD Data Warehouse.
+This SOP4CWD repository contains the scripts used to run the Prevalence Estimator Data Export in the CWD Data Warehouse. The Prevalence Estimator Data Export allows users to format data for immediate upload into the SpeedGoat Estimation Tool, located at https://public.spdgt.com/app/wtsurv. Scripts are annotated and shared with an MIT license. For information about the SOP4CWD project, visit www.sop4cwd.org.  
